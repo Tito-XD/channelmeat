@@ -5,7 +5,6 @@ const taobaoShareText = `【淘宝】${taokouling} https://m.tb.cn/h.8ghfjzEU1ag
 const links = [
   {
     name: '小红书',
-    desc: '日常更新 · 制品图透',
     url: 'https://xhslink.cn/m/8mrKDfG2BuD',
     badge: '红薯',
     color: '#FF2442',
@@ -13,7 +12,6 @@ const links = [
   },
   {
     name: '抖音',
-    desc: '短视频 · 制作过程',
     url: 'https://v.douyin.com/9eig9TCj_-4/',
     badge: '抖',
     color: '#161823',
@@ -21,7 +19,6 @@ const links = [
   },
   {
     name: '微博',
-    desc: '资讯 · 摊宣 · 转发抽奖',
     url: 'https://weibo.com/u/6042122549',
     badge: '微',
     color: '#E6162D',
@@ -29,7 +26,7 @@ const links = [
   },
   {
     name: '淘宝店铺',
-    desc: '制品通贩 · 点击复制淘口令',
+    desc: '点击复制淘口令',
     url: 'https://m.tb.cn/h.8ghfjzEU1ag8rxX',
     badge: '淘',
     color: '#FF5000',
@@ -89,7 +86,7 @@ const links = [
         z-index: 1;
         width: 100%;
         max-width: 460px;
-        padding: 48px 20px 40px;
+        padding: 64px 22px 48px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -105,13 +102,13 @@ const links = [
         transform: rotate(-2deg);
       }
       h1 {
-        margin-top: 20px;
+        margin-top: 26px;
         font-size: 30px;
         font-weight: 900;
         letter-spacing: 2px;
       }
       .handle {
-        margin-top: 6px;
+        margin-top: 12px;
         font-size: 13px;
         font-weight: 800;
         letter-spacing: 3px;
@@ -122,7 +119,7 @@ const links = [
         box-shadow: 0 3px 0 rgba(0,0,0,0.12);
       }
       .bio {
-        margin-top: 14px;
+        margin-top: 18px;
         font-size: 14px;
         color: #555;
         text-align: center;
@@ -138,18 +135,18 @@ const links = [
       }
       /* 链接卡片 */
       .links {
-        margin-top: 30px;
+        margin-top: 38px;
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 18px;
       }
       .card {
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 16px;
         width: 100%;
-        padding: 15px 18px;
+        padding: 20px 22px;
         background: var(--card);
         border: 3px solid #fff;
         border-radius: 18px;
@@ -193,7 +190,7 @@ const links = [
       .card:hover .arrow { color: var(--red); transform: translateX(3px); }
       /* 底部 */
       footer {
-        margin-top: 36px;
+        margin-top: 44px;
         text-align: center;
         font-size: 11px;
         letter-spacing: 2px;
@@ -289,7 +286,7 @@ const links = [
               <span class="badge" style={`background:${item.color}`}>{item.badge}</span>
               <span class="card-text">
                 <span class="card-name">{item.name}</span>
-                <span class="card-desc" style="display:block">{item.desc}</span>
+                {item.desc && <span class="card-desc" style="display:block">{item.desc}</span>}
               </span>
               <span class="arrow">↗</span>
             </a>
