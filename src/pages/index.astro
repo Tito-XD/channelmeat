@@ -6,21 +6,21 @@ const links = [
   {
     name: '小红书',
     url: 'https://xhslink.cn/m/8mrKDfG2BuD',
-    badge: '红薯',
+    icon: '/assets/icons/xiaohongshu.svg',
     color: '#FF2442',
     type: 'link',
   },
   {
     name: '抖音',
     url: 'https://v.douyin.com/9eig9TCj_-4/',
-    badge: '抖',
+    icon: '/assets/icons/douyin.svg',
     color: '#161823',
     type: 'link',
   },
   {
     name: '微博',
     url: 'https://weibo.com/u/6042122549',
-    badge: '微',
+    icon: '/assets/icons/weibo.svg',
     color: '#E6162D',
     type: 'link',
   },
@@ -28,7 +28,7 @@ const links = [
     name: '淘宝店铺',
     desc: '点击复制淘口令',
     url: 'https://m.tb.cn/h.8ghfjzEU1ag8rxX',
-    badge: '淘',
+    icon: '/assets/icons/taobao.svg',
     color: '#FF5000',
     type: 'taobao',
   },
@@ -171,11 +171,12 @@ const links = [
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #fff;
-        font-size: 15px;
-        font-weight: 900;
-        letter-spacing: 0;
         box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+      }
+      .badge img {
+        width: 24px;
+        height: 24px;
+        display: block;
       }
       .card-text { flex: 1; min-width: 0; text-align: left; }
       .card-name { font-size: 17px; font-weight: 800; }
@@ -283,7 +284,7 @@ const links = [
         {links.map((item) =>
           item.type === 'link' ? (
             <a class="card" href={item.url} target="_blank" rel="noopener noreferrer">
-              <span class="badge" style={`background:${item.color}`}>{item.badge}</span>
+              <span class="badge" style={`background:${item.color}`}><img src={item.icon} alt="" /></span>
               <span class="card-text">
                 <span class="card-name">{item.name}</span>
                 {item.desc && <span class="card-desc" style="display:block">{item.desc}</span>}
@@ -292,7 +293,7 @@ const links = [
             </a>
           ) : (
             <button class="card" id="taobao-btn" type="button" data-url={item.url} data-copy={taobaoShareText}>
-              <span class="badge" style={`background:${item.color}`}>{item.badge}</span>
+              <span class="badge" style={`background:${item.color}`}><img src={item.icon} alt="" /></span>
               <span class="card-text">
                 <span class="card-name">{item.name}</span>
                 <span class="card-desc" style="display:block">{item.desc}</span>
