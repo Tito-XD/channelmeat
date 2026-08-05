@@ -6,21 +6,21 @@ const links = [
   {
     name: '小红书',
     url: 'https://xhslink.cn/m/8mrKDfG2BuD',
-    icon: '/assets/icons/colored/xhs.svg',
+    icon: '/assets/icons/apps/xhs.jpg',
     color: '#FF2442',
     type: 'link',
   },
   {
     name: '抖音',
     url: 'https://v.douyin.com/9eig9TCj_-4/',
-    icon: '/assets/icons/colored/douyin-favicon.png',
+    icon: '/assets/icons/apps/douyin.jpg',
     color: '#161823',
     type: 'link',
   },
   {
     name: '微博',
     url: 'https://weibo.com/u/6042122549',
-    icon: '/assets/icons/colored/weibo-favicon.png',
+    icon: '/assets/icons/apps/weibo.jpg',
     color: '#E6162D',
     type: 'link',
   },
@@ -28,7 +28,7 @@ const links = [
     name: '淘宝店铺',
     desc: '点击复制淘口令',
     url: 'https://m.tb.cn/h.8ghfjzEU1ag8rxX',
-    icon: '/assets/icons/colored/taobao-favicon.png',
+    icon: '/assets/icons/apps/taobao.jpg',
     color: '#FF5000',
     type: 'taobao',
   },
@@ -182,17 +182,14 @@ const links = [
         width: 46px;
         height: 46px;
         border-radius: 13px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #fff;
-        border: 1.5px solid rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.10);
       }
       .badge img {
-        width: 28px;
-        height: 28px;
+        width: 46px;
+        height: 46px;
         display: block;
-        object-fit: contain;
+        object-fit: cover;
       }
       .card-text { flex: 1; min-width: 0; text-align: left; }
       .card-name { font-size: 17px; font-weight: 800; }
