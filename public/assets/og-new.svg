@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">肉食狗小分队</title>
+  <desc id="desc">橙红色圆角矩形中的 CHANNEL MEAT Logo</desc>
+  <defs>
+    <linearGradient id="card" x1="8" y1="8" x2="152" y2="152" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff5a50" />
+      <stop offset="0.58" stop-color="#f2483f" />
+      <stop offset="1" stop-color="#ff6751" />
+    </linearGradient>
+    <pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.8" fill="#fff" opacity="0.12" />
+    </pattern>
+  </defs>
+  <rect x="3" y="3" width="154" height="154" rx="30" fill="url(#card)" stroke="#fff" stroke-width="6" />
+  <rect x="6" y="6" width="148" height="148" rx="27" fill="url(#dots)" />
+  <image href="/assets/logo-meat.svg" x="18" y="51" width="124" height="60" />
+</svg>
