@@ -49,7 +49,7 @@ const links = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#e5e6e6" />
-    <title>CHANNEL MEAT · Link Card 模板预览</title>
+    <title>CHANNEL MEAT · 新版 Link Card</title>
     <style>
       @font-face {
         font-family: "Nishiki-teki";
@@ -448,27 +448,77 @@ const links = [
       .modal-open { color: #fff; background: var(--red); }
 
       @media (max-width: 600px) {
-        .page-shell { padding: 14px 0 32px; }
-        .link-card { width: 100%; border-right: 0; border-left: 0; }
+        html, body {
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+        .page-shell {
+          width: 100%;
+          height: 100dvh;
+          min-height: 100svh;
+          padding: 0;
+        }
+        .link-card {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          height: 100dvh;
+          min-height: 100svh;
+          margin: 0;
+          padding: max(12px, env(safe-area-inset-top)) 14px 0;
+          border: 0;
+          box-shadow: none;
+        }
         .brand-row { gap: 7px; }
         .top-copy { font-size: 10px; letter-spacing: .08em; -webkit-text-stroke: 1.5px #747778; }
         .brand-lockup { font-size: 17px; -webkit-text-stroke: 1.5px #747778; }
         .profile {
-          --profile-logo-size: clamp(96px, 27vw, 120px);
-          gap: clamp(12px, 3.2vw, 15px);
-          padding: 16px;
+          --profile-logo-size: clamp(82px, 15dvh, 104px);
+          flex: none;
+          gap: 12px;
+          margin-top: clamp(10px, 2.5dvh, 18px);
+          padding: clamp(10px, 2dvh, 14px);
           border-width: 3px;
+          border-radius: 22px;
         }
-        .profile h1 { font-size: clamp(20px, 6.4vw, 30px); letter-spacing: -1px; white-space: nowrap; }
-        .handle { margin-top: 8px; padding: 4px 10px; font-size: 10px; line-height: 1; letter-spacing: 1.5px; }
-        .bio { margin-top: 8px; font-size: clamp(7px, 2.35vw, 12px); line-height: 1.35; white-space: nowrap; }
-        .slogan { margin-top: 5px; font-size: clamp(6px, 1.75vw, 8px); letter-spacing: clamp(.5px, .2vw, 1px); white-space: nowrap; }
-        .link-panel { padding: 18px 14px; border-width: 3px; border-radius: 26px; }
+        .profile h1 { font-size: clamp(19px, 5.8vw, 27px); letter-spacing: -1px; white-space: nowrap; }
+        .handle { margin-top: 5px; padding: 3px 9px; font-size: 9px; line-height: 1; letter-spacing: 1.4px; }
+        .bio { margin-top: 5px; font-size: clamp(7px, 2.1vw, 10px); line-height: 1.25; white-space: nowrap; }
+        .slogan { margin-top: 3px; font-size: clamp(5.5px, 1.45vw, 7px); line-height: 1.2; letter-spacing: clamp(.4px, .16vw, .8px); white-space: nowrap; }
+        .link-panel {
+          display: flex;
+          flex: 1 1 auto;
+          flex-direction: column;
+          min-height: 0;
+          margin-top: clamp(8px, 2dvh, 14px);
+          padding: clamp(9px, 1.8dvh, 14px) 12px;
+          border-width: 3px;
+          border-radius: 24px;
+        }
         .panel-heading { align-items: flex-start; }
-        .link-row { min-height: 68px; padding-right: 12px; }
-        .link-icon { width: 46px; height: 46px; }
-        .link-name { font-size: 16px; }
-        .poster-footer { margin-left: -18px; margin-right: -18px; padding-left: 18px; padding-right: 18px; }
+        .panel-heading h2 { font-size: clamp(20px, 5.5vw, 25px); }
+        .panel-heading p { margin-top: 3px; font-size: 9px; }
+        .link-list {
+          flex: 1 1 auto;
+          grid-template-rows: repeat(4, minmax(0, 1fr));
+          min-height: 0;
+          gap: clamp(5px, 1dvh, 8px);
+          margin-top: clamp(6px, 1.2dvh, 9px);
+        }
+        .link-row { min-height: 0; padding: 4px 10px; border-radius: 14px; }
+        .link-icon { width: clamp(34px, 6.5dvh, 42px); height: clamp(34px, 6.5dvh, 42px); padding: 2px; }
+        .link-icon img { border-radius: 9px; }
+        .link-name { font-size: clamp(13px, 3.8vw, 16px); }
+        .link-desc { margin-top: 0; font-size: clamp(8px, 2.5vw, 10px); }
+        .link-arrow { font-size: 18px; }
+        .poster-footer {
+          flex: none;
+          margin: clamp(6px, 1.5dvh, 10px) -14px 0;
+          padding: clamp(6px, 1.2dvh, 9px) 14px max(clamp(6px, 1.2dvh, 9px), env(safe-area-inset-bottom));
+          font-size: clamp(7px, 2vw, 9px);
+          line-height: 1.35;
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {
