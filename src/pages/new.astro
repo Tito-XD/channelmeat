@@ -50,13 +50,16 @@ const links = [
     <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#e5e6e6" />
     <title>CHANNEL MEAT · 新版 Link Card</title>
+    <link rel="preload" href="/assets/fonts/alimama-shu-hei-ti.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/nishiki-teki-brand.woff2" as="font" type="font/woff2" crossorigin />
     <style>
       @font-face {
         font-family: "Nishiki-teki";
-        src: url("/assets/fonts/nishiki-teki.ttf") format("truetype");
+        src: url("/assets/fonts/nishiki-teki-brand.woff2") format("woff2");
         font-style: normal;
         font-weight: 400;
-        font-display: swap;
+        font-display: block;
+        unicode-range: U+0020, U+0041, U+0043, U+0045, U+0048, U+004C-004E, U+0054, U+2733;
       }
 
       @font-face {
