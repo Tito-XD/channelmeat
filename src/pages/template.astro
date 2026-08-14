@@ -187,11 +187,12 @@ const links = [
       .brand-mark { font-size: 1.2em; line-height: .8; }
 
       .profile {
+        --profile-logo-size: clamp(120px, 18vw, 140px);
         position: relative;
         z-index: 1;
         display: grid;
-        grid-template-columns: minmax(142px, .72fr) 1.28fr;
-        align-items: stretch;
+        grid-template-columns: var(--profile-logo-size) minmax(0, 1fr);
+        align-items: center;
         gap: clamp(20px, 5vw, 48px);
         margin-top: clamp(54px, 8vw, 82px);
         padding: clamp(18px, 3.5vw, 28px);
@@ -215,8 +216,10 @@ const links = [
         position: relative;
         z-index: 1;
         display: grid;
-        height: 100%;
-        min-height: 104px;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 1;
         place-items: center;
         padding: 14px 12px;
         background: #56595a;
@@ -238,6 +241,8 @@ const links = [
         display: flex;
         flex-direction: column;
         justify-content: center;
+        min-width: 0;
+        height: var(--profile-logo-size);
       }
 
       .profile h1 {
@@ -367,6 +372,7 @@ const links = [
         position: relative;
         z-index: 1;
         display: flex;
+        align-items: center;
         justify-content: space-between;
         gap: 12px;
         margin: 28px -62px -32px;
@@ -374,8 +380,11 @@ const links = [
         color: rgba(255,255,255,.8);
         background: #56595a;
         font-size: 10px;
+        line-height: 1.5;
         letter-spacing: 1px;
       }
+
+      .poster-footer span:last-child { text-align: right; }
 
       .modal-mask {
         position: fixed;
@@ -444,10 +453,16 @@ const links = [
         .brand-row { gap: 7px; }
         .top-copy { font-size: 10px; letter-spacing: .08em; -webkit-text-stroke: 1.5px #747778; }
         .brand-lockup { font-size: 17px; -webkit-text-stroke: 1.5px #747778; }
-        .profile { grid-template-columns: 96px 1fr; gap: 15px; padding: 16px; border-width: 3px; }
-        .profile h1 { font-size: clamp(24px, 7vw, 32px); letter-spacing: -1px; white-space: normal; }
-        .bio { font-size: 12px; }
-        .slogan { font-size: 8px; letter-spacing: 1px; }
+        .profile {
+          --profile-logo-size: clamp(96px, 27vw, 120px);
+          gap: clamp(12px, 3.2vw, 15px);
+          padding: 16px;
+          border-width: 3px;
+        }
+        .profile h1 { font-size: clamp(20px, 6.4vw, 30px); letter-spacing: -1px; white-space: nowrap; }
+        .handle { margin-top: 8px; padding: 4px 10px; font-size: 10px; line-height: 1; letter-spacing: 1.5px; }
+        .bio { margin-top: 8px; font-size: clamp(7px, 2.35vw, 12px); line-height: 1.35; white-space: nowrap; }
+        .slogan { margin-top: 5px; font-size: clamp(6px, 1.75vw, 8px); letter-spacing: clamp(.5px, .2vw, 1px); white-space: nowrap; }
         .link-panel { padding: 18px 14px; border-width: 3px; border-radius: 26px; }
         .panel-heading { align-items: flex-start; }
         .link-row { min-height: 68px; padding-right: 12px; }
@@ -506,8 +521,8 @@ const links = [
         </section>
 
         <footer class="poster-footer">
-          <span>@肉食狗小分队 · CHANNEL MEAT</span>
-          <span>SEEK FOR MEAT · STAY FOR MEET</span>
+          <span>©肉食狗小分队<br />CHANNEL MEAT</span>
+          <span>SEEK FOR MEAT<br />STAY FOR MEET</span>
         </footer>
       </article>
     </main>
