@@ -1,35 +1,43 @@
 ---
 const taokouling = '77₤t2G8gCNFhNw₴';
 const taobaoShareText = `【淘宝】${taokouling} https://m.tb.cn/h.8ghfjzEU1ag8rxX HU287 肉食狗小分队`;
+const taobaoUrl = 'https://m.tb.cn/h.8ghfjzEU1ag8rxX';
 
 const links = [
   {
+    key: 'xhs',
     name: '小红书',
+    desc: '进入官方主页',
     url: 'https://xhslink.cn/m/8mrKDfG2BuD',
     icon: '/assets/icons/apps/xhs.jpg',
-    color: '#FF2442',
-    type: 'link',
+    accent: '#ff3151',
+    type: 'confirm',
   },
   {
+    key: 'douyin',
     name: '抖音',
+    desc: '进入官方主页',
     url: 'https://v.douyin.com/9eig9TCj_-4/',
     icon: '/assets/icons/apps/douyin.jpg',
-    color: '#161823',
-    type: 'link',
+    accent: '#17171a',
+    type: 'confirm',
   },
   {
+    key: 'weibo',
     name: '微博',
+    desc: '进入官方主页',
     url: 'https://weibo.com/u/6042122549',
     icon: '/assets/icons/apps/weibo.jpg',
-    color: '#E6162D',
-    type: 'link',
+    accent: '#e6162d',
+    type: 'confirm',
   },
   {
+    key: 'taobao',
     name: '淘宝店铺',
     desc: '点击复制淘口令',
     url: 'https://m.tb.cn/h.8ghfjzEU1ag8rxX',
     icon: '/assets/icons/apps/taobao.jpg',
-    color: '#FF5000',
+    accent: '#ff5000',
     type: 'taobao',
   },
 ];
@@ -39,6 +47,7 @@ const links = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#e5e6e6" />
     <title>肉食狗小分队 CHANNEL MEAT · 官方链接聚合</title>
     <meta name="description" content="肉食狗小分队 CHANNEL MEAT — Furry 制品社团官方链接聚合页。小红书 / 抖音 / 微博 / 淘宝店铺。" />
     <link rel="icon" type="image/jpeg" href="/assets/logo-meat.jpg" />
@@ -56,323 +65,630 @@ const links = [
     <meta name="twitter:title" content="肉食狗小分队 CHANNEL MEAT · 官方链接聚合" />
     <meta name="twitter:description" content="Furry 制品社团 · 做热情有趣的制品 🐾 小红书 / 抖音 / 微博 / 淘宝店铺" />
     <meta name="twitter:image" content="https://channelme.at/assets/og-cover.png" />
+    <link rel="preload" href="/assets/fonts/alimama-shu-hei-ti.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/nishiki-teki-brand.woff2" as="font" type="font/woff2" crossorigin />
     <style>
+      @font-face {
+        font-family: "Nishiki-teki";
+        src: url("/assets/fonts/nishiki-teki-brand.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 400;
+        font-display: block;
+        unicode-range: U+0020, U+0041, U+0043, U+0045, U+0048, U+004C-004E, U+0054, U+2733;
+      }
+
+      @font-face {
+        font-family: "Alimama ShuHeiTi";
+        src: url("/assets/fonts/alimama-shu-hei-ti.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+      }
+
       :root {
-        --red: #f2402f;
-        --ink: #1d1d1f;
-        --paper: #ececec;
-        --card: #ffffff;
+        --paper: #e5e6e6;
+        --ink: #343638;
+        --muted: #777a7b;
+        --red: #f2483f;
+        --red-deep: #d83835;
+        --white: #fff;
+        --body-font: "Alimama ShuHeiTi", "Microsoft YaHei", sans-serif;
+        --brand-font: "Nishiki-teki", "Microsoft YaHei", sans-serif;
+        --title-font: var(--body-font);
       }
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { height: 100%; }
+
+      * { box-sizing: border-box; }
+      html { min-width: 320px; background: #d7d8d8; }
       body {
-        font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
-        color: var(--ink);
-        background-color: var(--paper);
-        /* 半调网点背景 */
-        background-image:
-          radial-gradient(circle at 25% 20%, rgba(0,0,0,0.055) 1.6px, transparent 1.7px),
-          radial-gradient(circle at 75% 80%, rgba(0,0,0,0.04) 1.4px, transparent 1.5px);
-        background-size: 22px 22px, 18px 18px;
+        margin: 0;
         min-height: 100vh;
-        display: flex;
-        justify-content: center;
+        color: var(--ink);
+        font-family: var(--body-font);
+        background:
+          linear-gradient(rgba(255,255,255,.22) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.22) 1px, transparent 1px),
+          #d7d8d8;
+        background-size: 48px 48px;
+      }
+
+      button, a { font: inherit; }
+      button { cursor: pointer; }
+
+      .page-shell {
+        width: 100%;
+        padding: 28px 16px 56px;
+      }
+
+      .link-card {
+        isolation: isolate;
         position: relative;
-        overflow-x: hidden;
+        width: min(100%, 760px);
+        min-height: 100vh;
+        margin: 0 auto;
+        overflow: hidden;
+        padding: clamp(24px, 5vw, 58px) clamp(18px, 6vw, 62px) 32px;
+        background:
+          linear-gradient(rgba(94, 98, 99, .14) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(94, 98, 99, .14) 1px, transparent 1px),
+          var(--paper);
+        background-size: 48px 48px;
+        border: 1px solid rgba(52, 54, 56, .14);
+        box-shadow: 0 22px 60px rgba(35, 36, 37, .18);
       }
-      /* 巨大的 M 水印 */
-      .watermark {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 130vw;
-        font-weight: 900;
-        line-height: 1;
-        color: transparent;
-        -webkit-text-stroke: 2px rgba(0, 0, 0, 0.05);
-        user-select: none;
+
+      .link-card::before,
+      .link-card::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
         pointer-events: none;
-        z-index: 0;
+        border-radius: 50%;
+        background-image: radial-gradient(rgba(104, 108, 109, .22) 1.5px, transparent 1.8px);
+        background-size: 13px 13px;
+        opacity: .72;
       }
-      .page {
+
+      .link-card::before {
+        width: 560px;
+        height: 560px;
+        top: 230px;
+        left: -310px;
+        transform: rotate(20deg);
+      }
+
+      .link-card::after {
+        width: 680px;
+        height: 680px;
+        top: -48px;
+        right: -380px;
+        transform: rotate(-16deg);
+      }
+
+      .brand-row {
         position: relative;
         z-index: 1;
-        width: 100%;
-        max-width: 460px;
-        padding: 64px 22px 48px;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
         align-items: center;
+        gap: 14px;
+        margin-top: 0;
       }
-      /* 顶部 LOGO：贴纸感 */
-      .logo {
-        width: 132px;
-        height: 132px;
-        border-radius: 28px;
-        border: 5px solid #fff;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
-        object-fit: cover;
-        transform: rotate(-2deg);
-      }
-      h1 {
-        margin-top: 26px;
-        font-size: 30px;
-        font-weight: 900;
-        letter-spacing: 2px;
-      }
-      .handle {
-        margin-top: 12px;
-        font-size: 13px;
-        font-weight: 800;
-        letter-spacing: 3px;
+
+      .top-copy {
         color: #fff;
-        background: var(--red);
-        padding: 4px 14px;
-        border-radius: 999px;
-        box-shadow: 0 3px 0 rgba(0,0,0,0.12);
+        font-size: clamp(11px, 1.6vw, 16px);
+        font-weight: 1000;
+        line-height: 1.1;
+        letter-spacing: .10em;
+        -webkit-text-fill-color: #fff;
+        -webkit-text-stroke: 2px #747778;
+        paint-order: stroke fill;
       }
-      .bio {
-        margin-top: 18px;
-        font-size: 14px;
-        color: #555;
-        text-align: center;
-        line-height: 1.7;
+
+      .top-copy:last-child { text-align: right; }
+
+      .brand-lockup {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+        color: #fff;
+        font-family: var(--brand-font);
+        font-size: clamp(18px, 3vw, 28px);
+        font-weight: 400;
+        line-height: .8;
+        letter-spacing: .01em;
+        -webkit-text-fill-color: #fff;
+        -webkit-text-stroke: 2px #747778;
+        paint-order: stroke fill;
       }
-      .bio .slogan {
-        display: block;
-        margin-top: 4px;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 2.5px;
-        color: #999;
+
+      .brand-mark { font-size: 1.2em; line-height: .8; }
+
+      .profile {
+        --profile-logo-size: clamp(120px, 18vw, 140px);
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: var(--profile-logo-size) minmax(0, 1fr);
+        align-items: center;
+        gap: clamp(20px, 5vw, 48px);
+        margin-top: clamp(54px, 8vw, 82px);
+        padding: clamp(18px, 3.5vw, 28px);
+        color: #fff;
+        background: var(--ink);
+        border: 4px solid #fff;
+        border-radius: 24px;
+        box-shadow: 0 6px 0 rgba(52, 54, 56, .52);
       }
-      /* 链接卡片 */
-      .links {
-        margin-top: 38px;
+
+      .profile::after {
+        content: "";
+        position: absolute;
+        inset: 7px;
+        border: 1px solid rgba(255,255,255,.14);
+        border-radius: 17px;
+        pointer-events: none;
+      }
+
+      .logo-sticker {
+        position: relative;
+        z-index: 1;
+        display: grid;
         width: 100%;
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 1;
+        place-items: center;
+        padding: 14px 12px;
+        background: #56595a;
+        border: 2px solid rgba(255,255,255,.9);
+        border-radius: 18px;
+        box-shadow: 4px 4px 0 rgba(0,0,0,.14);
+      }
+
+      .logo-sticker img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .profile-copy {
+        position: relative;
+        z-index: 1;
         display: flex;
         flex-direction: column;
-        gap: 18px;
+        justify-content: center;
+        min-width: 0;
+        height: var(--profile-logo-size);
       }
-      .card {
+
+      .profile h1 {
+        margin: 0;
+        font-family: var(--title-font);
+        font-size: clamp(28px, 5vw, 46px);
+        font-weight: 400;
+        letter-spacing: -2px;
+        line-height: .95;
+        white-space: nowrap;
+      }
+
+      .handle {
+        display: inline-block;
+        margin-top: 14px;
+        padding: 5px 13px;
+        color: var(--ink);
+        background: #fff;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 1000;
+        letter-spacing: 2px;
+      }
+
+      .bio {
+        margin: 14px 0 0;
+        color: rgba(255,255,255,.8);
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.6;
+      }
+
+      .slogan {
+        display: block;
+        margin-top: 7px;
+        color: rgba(255,255,255,.55);
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+
+      .link-panel {
+        position: relative;
+        z-index: 1;
+        margin-top: 24px;
+        padding: clamp(18px, 3.5vw, 28px);
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 18% 10%, rgba(255,255,255,.17) 0 2px, transparent 2.5px),
+          radial-gradient(circle at 78% 82%, rgba(255,255,255,.12) 0 1.5px, transparent 2px),
+          linear-gradient(138deg, #ff5a50, var(--red) 60%, #ff6751);
+        background-size: 13px 13px, 17px 17px, auto;
+        border: 4px solid #fff;
+        border-radius: 30px;
+        box-shadow: 0 8px 0 rgba(111, 61, 59, .2), 0 15px 28px rgba(64, 42, 42, .12);
+      }
+
+      .link-panel::after {
+        content: "";
+        position: absolute;
+        inset: 9px;
+        border: 1px solid rgba(255,255,255,.16);
+        border-radius: 22px;
+        pointer-events: none;
+      }
+
+      .panel-heading {
+        position: relative;
+        z-index: 1;
         display: flex;
         align-items: center;
-        gap: 16px;
+        justify-content: space-between;
+        gap: 14px;
+        color: #fff;
+      }
+
+      .panel-heading h2 { margin: 0; font-family: var(--title-font); font-size: clamp(24px, 4vw, 36px); font-weight: 400; letter-spacing: -1px; line-height: 1; }
+      .panel-heading p { margin: 5px 0 0; font-size: 11px; font-weight: 800; opacity: .8; }
+
+      .link-list {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .link-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
         width: 100%;
-        padding: 20px 22px;
-        background: var(--card);
-        border: 3px solid #fff;
-        border-radius: 18px;
-        box-shadow: 0 4px 0 rgba(0, 0, 0, 0.10), 0 10px 22px rgba(0, 0, 0, 0.06);
-        text-decoration: none;
+        min-height: 68px;
+        padding: 8px 14px 8px 10px;
         color: var(--ink);
-        cursor: pointer;
-        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-        -webkit-tap-highlight-color: transparent;
+        background: #fff;
+        border: 2px solid #fff;
+        border-radius: 17px;
+        box-shadow: 0 3px 0 rgba(112, 44, 42, .16);
+        text-decoration: none;
+        text-align: left;
+        transition: transform .16s ease, box-shadow .16s ease;
       }
-      .card:hover {
-        transform: translateY(-3px) rotate(-0.4deg);
-        border-color: var(--red);
-        box-shadow: 0 7px 0 rgba(242, 64, 47, 0.25), 0 14px 26px rgba(0, 0, 0, 0.08);
-      }
-      .card:active { transform: translateY(0) scale(0.985); }
-      .badge {
+
+      button.link-row { appearance: none; }
+      .link-row:hover, .link-row:focus-visible { transform: translateY(-2px); box-shadow: 0 5px 0 rgba(112, 44, 42, .18); }
+      .link-row:active { transform: translateY(0) scale(.99); }
+
+      .link-icon {
         flex: none;
         width: 46px;
         height: 46px;
+        padding: 3px;
+        background: #fff;
+        border: 0;
         border-radius: 13px;
-        overflow: hidden;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.10);
+        box-shadow: none;
       }
-      .badge img {
-        width: 46px;
-        height: 46px;
-        display: block;
-        object-fit: cover;
+
+      .link-icon img { display: block; width: 100%; height: 100%; border-radius: 10px; object-fit: cover; }
+      .link-copy { flex: 1; min-width: 0; }
+      .link-name { display: block; font-size: 16px; font-weight: 1000; }
+      .link-desc { display: block; margin-top: 2px; color: #8a8b8c; font-size: 11px; font-weight: 700; }
+      .link-arrow { flex: none; color: var(--accent); font-size: 20px; font-weight: 1000; }
+
+      .poster-footer {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 28px -62px -32px;
+        padding: 18px clamp(18px, 6vw, 62px) 16px;
+        color: rgba(255,255,255,.8);
+        background: #56595a;
+        font-size: 10px;
+        line-height: 1.5;
+        letter-spacing: 1px;
       }
-      .card-text { flex: 1; min-width: 0; text-align: left; }
-      .card-name { font-size: 17px; font-weight: 800; }
-      .card-desc { margin-top: 2px; font-size: 12px; color: #888; }
-      .arrow {
-        flex: none;
-        font-size: 18px;
-        font-weight: 900;
-        color: #bbb;
-        transition: color 0.15s ease, transform 0.15s ease;
-      }
-      .card:hover .arrow { color: var(--red); transform: translateX(3px); }
-      /* 底部 */
-      footer {
-        margin-top: 44px;
-        text-align: center;
-        font-size: 11px;
-        letter-spacing: 2px;
-        color: #999;
-        line-height: 2;
-      }
-      footer .paw { color: var(--red); font-weight: 900; }
-      /* 弹窗 */
+
+      .poster-footer span:last-child { text-align: right; }
+
       .modal-mask {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.45);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 24px;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s ease;
         z-index: 10;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        background: rgba(28,29,30,.58);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity .18s ease, visibility .18s ease;
       }
-      .modal-mask.show { opacity: 1; pointer-events: auto; }
+
+      .modal-mask.show { opacity: 1; visibility: visible; pointer-events: auto; }
+
       .modal {
-        width: 100%;
-        max-width: 340px;
-        background: #fff;
+        width: min(100%, 430px);
+        padding: 24px;
+        background: #f7f7f5;
+        border: 3px solid var(--red);
         border-radius: 22px;
-        border: 4px solid var(--red);
-        padding: 28px 24px 22px;
-        text-align: center;
-        transform: translateY(12px) scale(0.96);
-        transition: transform 0.2s ease;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 14px 38px rgba(0,0,0,.24);
+        transform: translateY(10px) scale(.97);
+        transition: transform .18s ease;
       }
+
       .modal-mask.show .modal { transform: translateY(0) scale(1); }
-      .modal-emoji { font-size: 40px; }
-      .modal-title {
-        margin-top: 10px;
-        font-size: 19px;
-        font-weight: 900;
-      }
-      .modal-title em { color: var(--red); font-style: normal; }
-      .modal-code {
-        margin: 14px auto 0;
-        display: inline-block;
-        font-size: 13px;
-        font-weight: 700;
-        color: #b35900;
-        background: #fff4e8;
-        border: 1.5px dashed #ff5000;
-        border-radius: 10px;
-        padding: 8px 14px;
-        word-break: break-all;
-      }
-      .modal-tip { margin-top: 12px; font-size: 13px; color: #777; line-height: 1.7; }
-      .modal-actions {
+      .modal h2 { margin: 0; font-size: 22px; }
+      .modal p { margin: 8px 0 0; color: #666; font-size: 14px; line-height: 1.6; }
+
+      .modal-post {
+        display: grid;
+        grid-template-columns: 58px 1fr;
+        gap: 13px;
         margin-top: 18px;
-        display: flex;
-        gap: 10px;
+        padding: 15px;
+        background: #fff;
+        border-radius: 18px;
       }
-      .btn {
+
+      .modal-post img { width: 58px; height: 58px; border-radius: 16px; object-fit: cover; }
+      .modal-post strong { display: block; font-size: 15px; }
+      .modal-post span { display: block; margin-top: 4px; color: #777; font-size: 12px; line-height: 1.5; }
+
+      .modal-actions { display: flex; gap: 10px; margin-top: 18px; }
+      .modal-actions button, .modal-actions a {
         flex: 1;
-        border: none;
-        border-radius: 12px;
-        padding: 12px 0;
-        font-size: 15px;
-        font-weight: 800;
-        font-family: inherit;
-        cursor: pointer;
-        transition: transform 0.12s ease;
+        display: grid;
+        min-height: 44px;
+        place-items: center;
+        border: 0;
+        border-radius: 13px;
+        font-weight: 900;
+        text-align: center;
+        text-decoration: none;
       }
-      .btn:active { transform: scale(0.96); }
-      .btn-primary { background: #ff5000; color: #fff; box-shadow: 0 4px 0 #c23b00; }
-      .btn-ghost { background: #f1f1f1; color: #555; box-shadow: 0 4px 0 #d4d4d4; }
+
+      .modal-close { color: #555; background: #e8e8e5; }
+      .modal-open { color: #fff; background: var(--red); }
+
+      @media (max-width: 600px) {
+        html, body {
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+        .page-shell {
+          width: 100%;
+          height: 100dvh;
+          min-height: 100svh;
+          padding: 0;
+        }
+        .link-card {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          height: 100dvh;
+          min-height: 100svh;
+          margin: 0;
+          padding: max(12px, env(safe-area-inset-top)) 14px 0;
+          border: 0;
+          box-shadow: none;
+        }
+        .brand-row { gap: 7px; }
+        .top-copy { font-size: 10px; letter-spacing: .08em; -webkit-text-stroke: 1.5px #747778; }
+        .brand-lockup { font-size: 17px; -webkit-text-stroke: 1.5px #747778; }
+        .profile {
+          --profile-logo-size: clamp(82px, 15dvh, 104px);
+          flex: none;
+          gap: 12px;
+          margin-top: clamp(10px, 2.5dvh, 18px);
+          padding: clamp(10px, 2dvh, 14px);
+          border-width: 3px;
+          border-radius: 22px;
+        }
+        .profile h1 { font-size: clamp(19px, 5.8vw, 27px); letter-spacing: -1px; white-space: nowrap; }
+        .handle { margin-top: 5px; padding: 3px 9px; font-size: 9px; line-height: 1; letter-spacing: 1.4px; }
+        .bio { margin-top: 5px; font-size: clamp(7px, 2.1vw, 10px); line-height: 1.25; white-space: nowrap; }
+        .slogan { margin-top: 3px; font-size: clamp(5.5px, 1.45vw, 7px); line-height: 1.2; letter-spacing: clamp(.4px, .16vw, .8px); white-space: nowrap; }
+        .link-panel {
+          display: flex;
+          flex: 1 1 auto;
+          flex-direction: column;
+          min-height: 0;
+          margin-top: clamp(8px, 2dvh, 14px);
+          padding: clamp(9px, 1.8dvh, 14px) 12px;
+          border-width: 3px;
+          border-radius: 24px;
+        }
+        .panel-heading { align-items: flex-start; }
+        .panel-heading h2 { font-size: clamp(20px, 5.5vw, 25px); }
+        .panel-heading p { margin-top: 3px; font-size: 9px; }
+        .link-list {
+          flex: 1 1 auto;
+          grid-template-rows: repeat(4, minmax(0, 1fr));
+          min-height: 0;
+          gap: clamp(5px, 1dvh, 8px);
+          margin-top: clamp(6px, 1.2dvh, 9px);
+        }
+        .link-row { min-height: 0; padding: 4px 10px; border-radius: 14px; }
+        .link-icon { width: clamp(34px, 6.5dvh, 42px); height: clamp(34px, 6.5dvh, 42px); padding: 2px; }
+        .link-icon img { border-radius: 9px; }
+        .link-name { font-size: clamp(13px, 3.8vw, 16px); }
+        .link-desc { margin-top: 0; font-size: clamp(8px, 2.5vw, 10px); }
+        .link-arrow { font-size: 18px; }
+        .poster-footer {
+          flex: none;
+          margin: clamp(6px, 1.5dvh, 10px) -14px 0;
+          padding: clamp(6px, 1.2dvh, 9px) 14px max(clamp(6px, 1.2dvh, 9px), env(safe-area-inset-bottom));
+          font-size: clamp(7px, 2vw, 9px);
+          line-height: 1.35;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+      }
     </style>
   </head>
   <body>
-    <div class="watermark" aria-hidden="true">M</div>
+    <main class="page-shell">
+      <article class="link-card">
+        <header class="brand-row" aria-label="CHANNEL MEAT">
+          <span class="top-copy">做热情 有趣的制品</span>
+          <span class="brand-lockup"><span class="brand-mark">✳</span><span>CHANNEL<br />MEAT</span></span>
+          <span class="top-copy">去结识 有趣的队友</span>
+        </header>
 
-    <main class="page">
-      <img class="logo" src="/assets/logo-meat.jpg" alt="肉食狗小分队 CHANNEL MEAT LOGO" />
-      <h1>肉食狗小分队</h1>
-      <div class="handle">CHANNEL MEAT</div>
-      <p class="bio">
-        Furry 制品社团 · 做热情有趣的制品 🐾
-        <span class="slogan">SEEK FOR MEAT · STAY FOR MEET</span>
-      </p>
+        <section class="profile" aria-labelledby="profile-title">
+          <div class="logo-sticker">
+            <img src="/assets/logo-meat.svg" alt="肉食狗小分队 Logo" />
+          </div>
+          <div class="profile-copy">
+            <h1 id="profile-title">肉食狗小分队</h1>
+            <span class="handle">CHANNEL MEAT</span>
+            <p class="bio">Furry 制品社团 · 做热情有趣的制品 🐾<span class="slogan">SEEK FOR MEAT · STAY FOR MEET</span></p>
+          </div>
+        </section>
 
-      <nav class="links">
-        {links.map((item) =>
-          item.type === 'link' ? (
-            <a class="card" href={item.url} target="_blank" rel="noopener noreferrer">
-              <span class="badge"><img src={item.icon} alt={item.name} /></span>
-              <span class="card-text">
-                <span class="card-name">{item.name}</span>
-                {item.desc && <span class="card-desc" style="display:block">{item.desc}</span>}
-              </span>
-              <span class="arrow">↗</span>
-            </a>
-          ) : (
-            <button class="card" id="taobao-btn" type="button" data-url={item.url} data-copy={taobaoShareText}>
-              <span class="badge"><img src={item.icon} alt={item.name} /></span>
-              <span class="card-text">
-                <span class="card-name">{item.name}</span>
-                <span class="card-desc" style="display:block">{item.desc}</span>
-              </span>
-              <span class="arrow">⧉</span>
-            </button>
-          )
-        )}
-      </nav>
+        <section class="link-panel" aria-labelledby="links-title">
+          <div class="panel-heading">
+            <div><h2 id="links-title">官方链接</h2><p>小红书 · 抖音 · 微博 · 淘宝店铺</p></div>
+          </div>
 
-      <footer>
-        <div><span class="paw">✳</span> @肉食狗小分队 · CHANNEL MEAT</div>
-        <div>channelme.at</div>
-      </footer>
+          <nav class="link-list" aria-label="官方链接">
+            {links.map((item) => (
+              item.type === 'confirm' ? (
+                <button class="link-row" type="button" data-platform-key={item.key} style={`--accent:${item.accent}`} aria-label={`打开${item.name}链接`}>
+                  <span class="link-icon"><img src={item.icon} alt={item.name} /></span>
+                  <span class="link-copy"><span class="link-name">{item.name}</span><span class="link-desc">{item.desc}</span></span>
+                  <span class="link-arrow">↗</span>
+                </button>
+              ) : (
+                <button class="link-row" type="button" data-taobao="true" data-url={item.url} data-copy={taobaoShareText} style={`--accent:${item.accent}`}>
+                  <span class="link-icon"><img src={item.icon} alt={item.name} /></span>
+                  <span class="link-copy"><span class="link-name">{item.name}</span><span class="link-desc">{item.desc}</span></span>
+                  <span class="link-arrow">⧉</span>
+                </button>
+              )
+            ))}
+          </nav>
+        </section>
+
+        <footer class="poster-footer">
+          <span>©肉食狗小分队<br />CHANNEL MEAT</span>
+          <span>SEEK FOR MEAT<br />STAY FOR MEET</span>
+        </footer>
+      </article>
     </main>
 
-    <!-- 淘口令弹窗 -->
-    <div class="modal-mask" id="modal-mask" role="dialog" aria-modal="true">
-      <div class="modal">
-        <div class="modal-emoji">🥩</div>
-        <div class="modal-title"><em>已复制淘口令</em></div>
-        <div class="modal-code" id="modal-code">{taokouling}</div>
-        <p class="modal-tip">打开淘宝，自动跳转到店铺<br />若没有跳转，请在淘宝搜索框粘贴</p>
-        <div class="modal-actions">
-          <button class="btn btn-ghost" id="modal-close" type="button">先逛逛</button>
-          <button class="btn btn-primary" id="modal-open" type="button">打开淘宝</button>
-        </div>
-      </div>
+    <div class="modal-mask" id="platform-mask" aria-hidden="true">
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="platform-title">
+        <h2 id="platform-title">打开小红书</h2>
+        <p id="platform-tip">点击下方按钮前往小红书官方主页。</p>
+        <div class="modal-actions"><button class="modal-close" id="platform-close" type="button">取消</button><a class="modal-open" id="platform-open" href="#" target="_blank" rel="noopener noreferrer">打开小红书</a></div>
+      </section>
+    </div>
+
+    <div class="modal-mask" id="taobao-mask" aria-hidden="true">
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="taobao-title">
+        <h2 id="taobao-title">淘宝店铺</h2>
+        <p id="taobao-tip">淘口令已复制。打开淘宝后会自动跳转，若没有跳转请手动粘贴。</p>
+        <div class="modal-post"><div style="display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:#fff0e8;color:#ff5000;font-size:27px;font-weight:1000">淘</div><div><strong id="taobao-code">{taokouling}</strong><span>肉食狗小分队官方店铺</span></div></div>
+        <div class="modal-actions"><button class="modal-close" id="taobao-close" type="button">先逛逛</button><a class="modal-open" id="taobao-open" href={taobaoUrl} target="_blank" rel="noopener noreferrer">打开淘宝</a></div>
+      </section>
     </div>
 
     <script>
-      const mask = document.getElementById('modal-mask');
-      const taobaoBtn = document.getElementById('taobao-btn');
-      const closeBtn = document.getElementById('modal-close');
-      const openBtn = document.getElementById('modal-open');
+      const platformData = {
+        xhs: { name: '小红书', url: 'https://xhslink.cn/m/8mrKDfG2BuD' },
+        douyin: { name: '抖音', url: 'https://v.douyin.com/9eig9TCj_-4/' },
+        weibo: { name: '微博', url: 'https://weibo.com/u/6042122549' },
+      };
+
+      const platformMask = document.getElementById('platform-mask');
+      const taobaoMask = document.getElementById('taobao-mask');
+      const platformClose = document.getElementById('platform-close');
+      const taobaoClose = document.getElementById('taobao-close');
+      const platformTitle = document.getElementById('platform-title');
+      const platformTip = document.getElementById('platform-tip');
+      const platformOpen = document.getElementById('platform-open');
+      const taobaoButton = document.querySelector('[data-taobao]');
+      let lastTrigger = null;
+      let activeMask = null;
+
+      function closeMask(mask) {
+        mask?.classList.remove('show');
+        mask?.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        lastTrigger?.focus();
+        activeMask = null;
+      }
+
+      function openPlatformPrompt(key, trigger) {
+        const item = platformData[key];
+        if (!item || !platformMask) return;
+        lastTrigger = trigger;
+        platformTitle.textContent = `打开${item.name}`;
+        platformTip.textContent = `点击下方按钮前往${item.name}官方主页。`;
+        platformOpen.textContent = `打开${item.name}`;
+        platformOpen.href = item.url;
+        platformMask.classList.add('show');
+        platformMask.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        activeMask = platformMask;
+        platformClose?.focus();
+      }
 
       async function copyText(text) {
         try {
           await navigator.clipboard.writeText(text);
           return true;
-        } catch (e) {
-          // 兼容旧浏览器
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          ta.style.position = 'fixed';
-          ta.style.opacity = '0';
-          document.body.appendChild(ta);
-          ta.select();
-          try { document.execCommand('copy'); } catch (_) {}
-          document.body.removeChild(ta);
-          return true;
+        } catch (_) {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          let copied = false;
+          try { copied = document.execCommand('copy'); } catch (_) { copied = false; }
+          textarea.remove();
+          return copied;
         }
       }
 
-      taobaoBtn?.addEventListener('click', async () => {
-        await copyText(taobaoBtn.dataset.copy || '');
-        mask?.classList.add('show');
+      document.querySelectorAll('[data-platform-key]').forEach((button) => {
+        button.addEventListener('click', () => openPlatformPrompt(button.dataset.platformKey, button));
       });
-      closeBtn?.addEventListener('click', () => mask?.classList.remove('show'));
-      mask?.addEventListener('click', (e) => {
-        if (e.target === mask) mask.classList.remove('show');
+      taobaoButton?.addEventListener('click', async () => {
+        const copied = await copyText(taobaoButton.dataset.copy || '');
+        const tip = document.getElementById('taobao-tip');
+        if (tip) tip.textContent = copied ? '淘口令已复制。打开淘宝后会自动跳转，若没有跳转请手动粘贴。' : '自动复制失败，请手动复制淘口令后打开淘宝。';
+        lastTrigger = taobaoButton;
+        taobaoMask?.classList.add('show');
+        taobaoMask?.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        activeMask = taobaoMask;
+        taobaoClose?.focus();
       });
-      openBtn?.addEventListener('click', () => {
-        const url = taobaoBtn?.dataset.url;
-        if (url) window.open(url, '_blank', 'noopener');
-      });
+      platformClose?.addEventListener('click', () => closeMask(platformMask));
+      taobaoClose?.addEventListener('click', () => closeMask(taobaoMask));
+      [platformMask, taobaoMask].forEach((mask) => mask?.addEventListener('click', (event) => { if (event.target === mask) closeMask(mask); }));
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && activeMask) closeMask(activeMask); });
     </script>
   </body>
 </html>
