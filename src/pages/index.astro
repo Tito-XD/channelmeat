@@ -116,14 +116,18 @@ const links = [
 
       .page-shell {
         width: 100%;
+        min-height: 100dvh;
         padding: 28px 16px 56px;
+        display: flex;
+        justify-content: center;
+        /* 卡片高度跟随视口剩余空间：内容不足一屏时由卡片撑满、底部留白为卡片纸纹背景，避免多余滚动 */
       }
 
       .link-card {
         isolation: isolate;
         position: relative;
         width: min(100%, 760px);
-        min-height: 100vh;
+        min-height: 100%;
         margin: 0 auto;
         overflow: hidden;
         padding: clamp(24px, 5vw, 58px) clamp(18px, 6vw, 62px) 32px;
